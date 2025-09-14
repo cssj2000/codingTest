@@ -3,7 +3,7 @@
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12973) 
 
 ### 시간복잡도
-문자열 길이 최대 10,000,000 -> O(N) 알고리즘 필요
+문자열 길이 최대 1,000,000 -> O(N) 알고리즘 필요
 ArrayDeque push/pop -> O(1) -> 전체 시간복잡도 O(N)
 
 ### 해결방법
