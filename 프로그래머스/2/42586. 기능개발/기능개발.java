@@ -1,58 +1,28 @@
 import java.util.*;
 class Solution {
     
-    // 몇 일걸리는지 계산해주는 메서드
-    public int dayCalculator(int p, int s){
-        double divide =  (100-p) / (double)s;
-        int d_day = (int) Math.ceil(divide); 
-        return d_day;
-    }
-    
-    
+  
     public int[] solution(int[] progresses, int[] speeds) {
-        ArrayList<Integer> answer = new ArrayList<>();
-        ArrayDeque<Integer> p = new ArrayDeque<>();   
-        ArrayDeque<Integer> s = new ArrayDeque<>();   
+       List<Integer> answer = new ArrayList<>();
+        int n = progresses.length;
+        int[] days = new int[n];
+        for(int i=0; i<n; i++){
+            days[i] = (int) Math.ceil((100 - progresses[i]) / (double)speeds[i]);
+        }
         
-        //진행도를 큐에 담기
-        for(int i : progresses){
-            p.add(i);
-        }
-        //속도를 큐에 담기
-        for(int i : speeds){
-            s.add(i);   
-        }
-        //맨 앞에 있는 작업 기준점 잡기
-        int fp = p.poll();
-        int fs = s.poll();
         int cnt =1;
+        int base = days[0]; //기준점
         
-        while(true){
-            //다음 작업 기준 초기화
-            int rf = p.peek();
-            int rs = s.peek();
-            //맨앞 진행률 보타 바로 뒤의 진행률이 짧은 경우
-            if(dayCalculator(fp,fs) >= dayCalculator(rf,rs)){
-                p.poll();
-                s.poll();
+        for(int i=1; i<days.length; i++){
+            if(base>=days[i]){
                 cnt++;
-                if(p.isEmpty()){
-                    answer.add(cnt); 
-                    break;
-                }
-            }else{ //맨 앞 진행률 보다 진행률이 길어지는 시점 발생
-            answer.add(cnt);//기준점 바뀌는순간 cnt 저장
-            cnt = 1; //기준점 바꼈으니까 cnt 초기화
-            
-            //새로운 기준점으로 초기화
-            fp = p.poll();
-            fs = s.poll();
-            if(p.isEmpty()){
+            }else{
                 answer.add(cnt);
-                break;
+                cnt = 1;
+                base = days[i];
             }
         }
-    }
+        answer.add(cnt); // 마지막 배포추가
         
         
         return answer.stream().mapToInt(Integer::intValue).toArray();
