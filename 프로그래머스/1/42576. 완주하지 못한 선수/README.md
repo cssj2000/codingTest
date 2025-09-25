@@ -9,9 +9,7 @@ completion 배열 크기 = M
 
 participant 배열 크기 = N
 
-전체 시간 복잡도 = O(N + M) ≈ O(N)
-(항상 M = N - 1 이므로 O(N)으로 단순화 가능)
-
+전체 시간 복잡도 = O(N + M) ->  O(N)
 
 ### 해결 방안
 
